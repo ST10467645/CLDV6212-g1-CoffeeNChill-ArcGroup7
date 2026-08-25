@@ -19,3 +19,4 @@ if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPLICATIONINSIGHT
 }
 
 builder.Build().Run();
+//ST10482062 (Thamsanqa Ncube) testing clone and pushing to repo.
