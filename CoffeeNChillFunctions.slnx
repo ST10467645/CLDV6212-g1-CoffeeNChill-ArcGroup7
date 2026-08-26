@@ -1,3 +1,4 @@
 <Solution>
+  <Folder Name="/docs/" />
   <Project Path="CoffeeNChillFunctions.csproj" />
 </Solution>
