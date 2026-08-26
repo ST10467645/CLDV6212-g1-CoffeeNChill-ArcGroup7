@@ -1,11 +1,8 @@
-﻿// Models/MenuItem.cs
-// Code attribution: entity model pattern adapted from lecturer-provided
-// course example (CLDV6212, IIE, 2026) and Microsoft's official
+﻿// Code attribution: entity model pattern adapted from lecturer provided course example and Microsoft's official
 // Azure.Data.Tables documentation:
-// Microsoft, "Azure Tables client library for .NET," Microsoft Learn,
-// 6 May 2025. [Online]. Available:
+// Microsoft, "Azure Tables client library for .NET," Microsoft Learn,6 May 2025.
 // https://learn.microsoft.com/en-us/dotnet/api/overview/azure/data.tables-readme?view=azure-dotnet
-// [Accessed: 24-Aug-2026].
+// [Accessed: 26-Aug-2026].
 using Azure;
 using Azure.Data.Tables;
 

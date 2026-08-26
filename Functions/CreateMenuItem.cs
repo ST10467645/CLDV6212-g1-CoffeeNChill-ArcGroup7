@@ -1,10 +1,8 @@
-﻿// Functions/CreateMenuItem.cs
-// Code attribution: HTTP trigger + Table Storage insert pattern adapted from
-// lecturer-provided course example (CLDV6212, IIE, 2026) and Microsoft Learn:
+﻿// Code attribution: HTTP trigger + Table Storage insert pattern adapted from
+// lecturer provided course example and Microsoft Learn:
 // Microsoft, "HTTP trigger for Azure Functions," Microsoft Learn, 2025.
-// [Online]. Available:
 // https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger
-// [Accessed: 24-Aug-2026].
+// [Accessed: 26-Aug-2026].
 using Azure;
 using Azure.Data.Tables;
 using Microsoft.Azure.Functions.Worker;
