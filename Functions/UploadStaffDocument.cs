@@ -11,6 +11,7 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using System.Net;
 
@@ -18,10 +19,19 @@ namespace CoffeeNChillFunctions.Functions
 {
     public class UploadStaffDocument
     {
+        private readonly ILogger _logger;
+
+        public UploadStaffDocument(ILoggerFactory loggerFactory)
+        {
+            _logger = loggerFactory.CreateLogger<UploadStaffDocument>();
+        }
+
         [Function("UploadStaffDocument")]
         public async Task<HttpResponseData> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "documents/upload")] HttpRequestData req)
         {
+            _logger.LogInformation("Staff document upload started.");
+
             var response = req.CreateResponse();
             try
             {
@@ -58,6 +68,7 @@ namespace CoffeeNChillFunctions.Functions
                         var allowed = new[] { "application/pdf", "image/png", "image/jpeg" };
                         if (!string.IsNullOrEmpty(section.ContentType) && !allowed.Contains(section.ContentType))
                         {
+                            _logger.LogWarning($"Rejected file '{uploadedFileName}' — disallowed type '{section.ContentType}'.");
                             response.StatusCode = HttpStatusCode.BadRequest;
                             await response.WriteStringAsync($"File type '{section.ContentType}' not allowed.");
                             return response;
@@ -73,17 +84,20 @@ namespace CoffeeNChillFunctions.Functions
 
                 if (uploadedFileName == null)
                 {
+                    _logger.LogWarning("Upload request received with no file attached.");
                     response.StatusCode = HttpStatusCode.BadRequest;
                     await response.WriteStringAsync("No file found in the request.");
                     return response;
                 }
 
+                _logger.LogInformation($"Staff document '{uploadedFileName}' uploaded successfully.");
                 response.StatusCode = HttpStatusCode.Created;
                 await response.WriteStringAsync($"'{uploadedFileName}' uploaded successfully!");
                 return response;
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Upload failed: {ex.Message}");
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 await response.WriteStringAsync($"Error: {ex.Message}");
                 return response;
