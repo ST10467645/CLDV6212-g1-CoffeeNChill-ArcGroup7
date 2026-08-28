@@ -46,7 +46,7 @@ namespace CoffeeNChillFunctions.Functions
 
                 response.StatusCode = HttpStatusCode.OK;
                 response.Headers.Add("Content-Type", downloadResult.Value.Details.ContentType ?? "application/octet-stream");
-                await downloadResult.Value.Content.CopyToAsync(response.Body); 
+                await downloadResult.Value.Content.CopyToAsync(response.Body); // streamed, not fully buffered
 
                 _logger.LogInformation($"File '{fileName}' downloaded successfully.");
                 return response;

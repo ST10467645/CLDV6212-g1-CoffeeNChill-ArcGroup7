@@ -1,8 +1,10 @@
-// Lists all stored operational files in the "staff-docs" blob container, returning file name, size and last modified date for all of them.
-// Code attribution: blob listing pattern adapted from Microsoft's Azure Blob Storage documentation:
-// Microsoft, "List blobs with .NET," Microsoft Learn, 2025.
-// https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-list
-// [Accessed: 27-Aug-2026].
+// Lists all stored operational files in the "staff-docs" blob container, returning file name, size, and last modified date for each.
+// Code attribution: blob listing pattern adapted from lecturer-provided blob storage example and Microsoft's official
+// Azure Blob Storage documentation:
+// Microsoft, "Introduction to Azure Blob Storage," Microsoft Learn, 2025.
+// https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
+// [Accessed: 28-Aug-2026].
+using Azure;
 using Azure.Storage.Blobs;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -27,7 +29,6 @@ namespace CoffeeNChillFunctions.Functions
             _logger.LogInformation("Listing staff documents started.");
 
             var response = req.CreateResponse();
-
             try
             {
                 var containerClient = new BlobContainerClient("UseDevelopmentStorage=true", "staff-docs");
@@ -45,9 +46,15 @@ namespace CoffeeNChillFunctions.Functions
                 }
 
                 _logger.LogInformation($"Found {files.Count} staff document(s).");
-
                 response.StatusCode = HttpStatusCode.OK;
                 await response.WriteAsJsonAsync(files);
+                return response;
+            }
+            catch (RequestFailedException ex)
+            {
+                _logger.LogError($"Azure Blob Storage error listing documents: {ex.ErrorCode} - {ex.Message}");
+                response.StatusCode = (HttpStatusCode)ex.Status;
+                await response.WriteStringAsync($"Azure Blob Storage Error: {ex.ErrorCode} - {ex.Message}");
                 return response;
             }
             catch (Exception ex)
