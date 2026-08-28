@@ -19,6 +19,13 @@ namespace CoffeeNChillFunctions.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "menu/category/{category}")] HttpRequestData req,
             string category)
         {
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                var badReq = req.CreateResponse(HttpStatusCode.BadRequest);
+                await badReq.WriteStringAsync("Category must be provided in the route.");
+                return badReq;
+            }
+
             var table = new TableClient("UseDevelopmentStorage=true", "MenuItems");
             await table.CreateIfNotExistsAsync();
 
@@ -27,7 +34,7 @@ namespace CoffeeNChillFunctions.Functions
                 items.Add(item);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(items);
+            await response.WriteAsJsonAsync(items); // empty array [] if none found — valid, not an error
             return response;
         }
     }
