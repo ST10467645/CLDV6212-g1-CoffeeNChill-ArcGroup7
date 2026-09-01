@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "a02c2e3e-ce67-42d9-9f4f-38721013236d",
+    "_postman_id": "3ebba5fa-a48b-4580-a214-31c84af99056",
     "name": "CoffeeNChill Part 1",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "57297058"
+    "_exporter_id": "57297060"
   },
   "item": [
     {
@@ -16,12 +16,10 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official\r",
-                  "// documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman\r",
-                  "// Learning Center, 2025. [Online]. Available:\r",
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
                   "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 28-Aug-2026].\r",
+                  "// [Accessed: 01-Sep-2026].\r",
                   "pm.test(\"Status code is successful\", function () {\r",
                   "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
                   "});"
@@ -63,12 +61,10 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official\r",
-                  "// documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman\r",
-                  "// Learning Center, 2025. [Online]. Available:\r",
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
                   "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 28-Aug-2026].\r",
+                  "// [Accessed: 01-Sep-2026].\r",
                   "pm.test(\"Status code is successful\", function () {\r",
                   "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
                   "});"
@@ -101,12 +97,10 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official\r",
-                  "// documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman\r",
-                  "// Learning Center, 2025. [Online]. Available:\r",
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
                   "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 28-Aug-2026].\r",
+                  "// [Accessed: 01-Sep-2026].\r",
                   "pm.test(\"Status code is successful\", function () {\r",
                   "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
                   "});"
@@ -141,12 +135,10 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official\r",
-                  "// documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman\r",
-                  "// Learning Center, 2025. [Online]. Available:\r",
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
                   "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 28-Aug-2026].\r",
+                  "// [Accessed: 01-Sep-2026].\r",
                   "pm.test(\"Status code is successful\", function () {\r",
                   "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
                   "});"
@@ -190,12 +182,10 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official\r",
-                  "// documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman\r",
-                  "// Learning Center, 2025. [Online]. Available:\r",
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
                   "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 28-Aug-2026].\r",
+                  "// [Accessed: 01-Sep-2026].\r",
                   "pm.test(\"Status code is successful\", function () {\r",
                   "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
                   "});"
@@ -218,6 +208,134 @@
                 "menu",
                 "HotDrinks",
                 "COF-001"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Upload Staff Document",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "   // Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "   // Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                  "   // https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                  "   // [Accessed: 01-Sep-2026].\r",
+                  "   pm.test(\"Status code is successful\", function () {\r",
+                  "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                  "   });"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "",
+                  "description": "Test employee data",
+                  "type": "file",
+                  "uuid": "ea932616-08ae-4b98-87cd-430ef56a8037",
+                  "src": "/C:/Users/emeris/OneDrive - ADvTECH Ltd/Desktop/Documents/Kandyce Jade Smit's files - Part 1 (Shared)/Member folders/Kristen/Test Documents/CoffeeNChill_TestEmployee.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/documents/upload",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents",
+                "upload"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Staff Documents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                  "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                  "// [Accessed: 01-Sep-2026].\r",
+                  "   pm.test(\"Status code is successful\", function () {\r",
+                  "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                  "   });"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Download Staff Document",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                  "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                  "// [Accessed: 01-Sep-2026].\r",
+                  "   pm.test(\"Status code is successful\", function () {\r",
+                  "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                  "   });"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/documents/download/CoffeeNChill_TestEmployee.pdf",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents",
+                "download",
+                "CoffeeNChill_TestEmployee.pdf"
               ]
             }
           },
