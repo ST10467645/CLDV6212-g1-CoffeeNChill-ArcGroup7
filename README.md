@@ -59,8 +59,8 @@ in this project (build, push, run commands for both the Functions image and
 the Azurite image).
 
 ## Docker Hub Images
-- Functions image: https://hub.docker.com/r/[DOCKERHUB_USERNAME]/coffeenchill-functions
-- Azurite image: https://hub.docker.com/r/[DOCKERHUB_USERNAME]/coffeenchill-azurite
+- Functions image: https://hub.docker.com/r/st10482062/coffeenchill-functions
+- Azurite image: https://hub.docker.com/r/st10482062/coffeenchill-azurite
 
 ## API Endpoints
 
@@ -94,6 +94,21 @@ named staff-docs. Three HTTP-triggered functions were built:
 To test: import the Postman collection, select the "Local Azurite"
 environment, open the "Documents" folder, and run Upload first (so List and
 Download have a file to find), then List, then Download.
+
+## Docker Setup (Thami)
+This project runs as two separate standalone Docker containers in Part 1
+(no Docker Compose yet - that comes in Part 2):
+1. coffeenchill-azurite - the local Azure Storage emulator, running Azurite
+   with the --skipApiVersionCheck flag (required because newer Azure SDK
+   packages send a storage API version newer than the default Azurite build
+   recognises).
+2. coffeenchill-functions - the Azure Functions app itself, built from the
+   Dockerfile in the project root using a multi-stage build (a full SDK
+   image to compile, then a lightweight runtime image to actually run it).
+
+Both images are published publicly to Docker Hub, version tagged v1.0. See
+docs/docker-commands.md for the exact commands to build, push, and run both
+containers, and confirm they can communicate with each other.
 
 ## Testing
 A full Postman collection covering every endpoint above, with sample request
