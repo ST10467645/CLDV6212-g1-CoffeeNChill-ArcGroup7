@@ -80,6 +80,21 @@ the Azurite image).
 | GET | /api/documents | List all staff documents with metadata |
 | GET | /api/documents/download/{fileName} | Download a specific staff document |
 
+## Staff Documents Feature (Kristen)
+The staff documents feature replaces the filing cabinet of recipe sheets,
+cleaning manuals and safety policies with an Azure Blob Storage container
+named staff-docs. Three HTTP-triggered functions were built:
+- UploadStaffDocument accepts a file via form-data, validates the
+  MIME type (PDF, PNG, or JPEG only) and streams it directly into the
+  container without loading the whole file into memory.
+- ListStaffDocuments returns every file's name, size, and last modified date.
+- DownloadStaffDocument streams the requested file back to the caller or
+  returns a 404 if the file does not exist.
+
+To test: import the Postman collection, select the "Local Azurite"
+environment, open the "Documents" folder, and run Upload first (so List and
+Download have a file to find), then List, then Download.
+
 ## Testing
 A full Postman collection covering every endpoint above, with sample request
 bodies and passing tests, is available in docs/CoffeeNChill_Part1_Postman_
