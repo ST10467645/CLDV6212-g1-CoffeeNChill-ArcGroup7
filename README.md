@@ -1,0 +1,95 @@
+# CoffeeNChill Canteen Management System - Part 1
+
+## Project Overview
+This project modernises the CoffeeNChill campus canteen's paper-based menu and
+filing cabinet system into a cloud-enabled backend. Part 1 builds the foundation:
+Azure Table Storage for the digital menu, Azure Blob Storage for staff documents,
+and standalone Docker containers for local Azurite emulation and the Azure
+Functions app itself.
+
+## Important Note on Storage
+The assignment brief references "Azure File Share" for staff documents. Per
+lecturer guidance, Azure File Share emulation was replaced with Azure Blob
+Storage (container: staff-docs) to provide equivalent document upload/list/
+download functionality, as Azure File Share emulation is not reliably
+supported in Azurite for this project.
+
+## AI Disclosure
+AI tools (Claude) were used for planning, explaining concepts, and reviewing
+code structure throughout this project. All code was written, tested, and
+understood by the team; no code was submitted without modification and
+verification by a team member.
+
+## Team Members and Contributions
+| Name | Student Number | Role | What they built |
+|---|---|---|---|
+| Kandyce Smit | ST10467645 | Menu CRUD & Documentation Lead | MenuItem model, all 5 Menu HTTP functions (Create, GetAll, GetByCategory, Update, Delete), README |
+| Kristen Keve | ST10472683 | Staff Documents (Blob Storage) | UploadStaffDocument, ListStaffDocuments, DownloadStaffDocument functions |
+| Thamsanqa Ncube | ST10482062 | Docker & Docker Hub | Dockerfile, Docker Hub image publishing, Azurite container setup |
+
+## Prerequisites (Tools to Install)
+- Visual Studio 2022 (with Azure development workload)
+- Docker Desktop
+- Postman
+- Git
+
+## Local Setup Instructions
+
+1. Clone the repository:
+git clone https://github.com/EMGPSD/cldv6212-g1-2026-poe-part1-st10467645.git
+
+2. Create a local.settings.json file in the project root (not included by
+default, must be created manually) with the following content:
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+  }
+}
+
+3. Start the Azurite storage emulator in Docker:
+docker run -d --name coffeenchill-azurite -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite azurite --skipApiVersionCheck --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0
+
+4. Open the solution in Visual Studio and press F5 to run the Functions project locally.
+
+## Docker Standalone Container Commands
+See docs/docker-commands.md for the full reference of Docker commands used
+in this project (build, push, run commands for both the Functions image and
+the Azurite image).
+
+## Docker Hub Images
+- Functions image: https://hub.docker.com/r/[DOCKERHUB_USERNAME]/coffeenchill-functions
+- Azurite image: https://hub.docker.com/r/[DOCKERHUB_USERNAME]/coffeenchill-azurite
+
+## API Endpoints
+
+### Menu (Azure Table Storage)
+| Method | Route | Description |
+|---|---|---|
+| POST | /api/menu | Create a new menu item |
+| GET | /api/menu | Get all menu items |
+| GET | /api/menu/category/{category} | Get menu items filtered by category |
+| PUT | /api/menu/{category}/{id} | Update a menu item's price or availability |
+| DELETE | /api/menu/{category}/{id} | Delete a menu item |
+
+### Staff Documents (Azure Blob Storage)
+| Method | Route | Description |
+|---|---|---|
+| POST | /api/documents/upload | Upload a staff document (multipart/form-data) |
+| GET | /api/documents | List all staff documents with metadata |
+| GET | /api/documents/download/{fileName} | Download a specific staff document |
+
+## Testing
+A full Postman collection covering every endpoint above, with sample request
+bodies and passing tests, is available in docs/CoffeeNChill_Part1_Postman_
+Collection.json. Import this file along with docs/CoffeeNChill_Part1_
+Environment.json into Postman, select the "Local Azurite" environment, and
+run the collection.
+
+## Video Demonstration
+[YOUTUBE LINK WILL BE ADDED HERE ONCE RECORDED]
+
+## References
+References for code patterns and concepts used throughout this project are
+included as comments directly above the relevant code in each file with access dates.
