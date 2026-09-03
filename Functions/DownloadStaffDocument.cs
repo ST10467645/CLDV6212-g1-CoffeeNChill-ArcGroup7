@@ -31,9 +31,11 @@ namespace CoffeeNChillFunctions.Functions
 
             try
             {
+                //Connects to the staff-docs container to find the file
                 var containerClient = new BlobContainerClient("UseDevelopmentStorage=true", "staff-docs");
                 var blobClient = containerClient.GetBlobClient(fileName);
 
+                //Checks if the file exists before trying to download it, returns 404 if not found
                 if (!await blobClient.ExistsAsync())
                 {
                     _logger.LogWarning($"File '{fileName}' not found.");
@@ -42,15 +44,18 @@ namespace CoffeeNChillFunctions.Functions
                     return response;
                 }
 
+                //Downloads the file as a stream instead of loading the whole file into memory first so large files don't slow things down
                 var downloadResult = await blobClient.DownloadStreamingAsync();
 
+                //Sets the response status and content type, then streams the file content into the response body
                 response.StatusCode = HttpStatusCode.OK;
                 response.Headers.Add("Content-Type", downloadResult.Value.Details.ContentType ?? "application/octet-stream");
-                await downloadResult.Value.Content.CopyToAsync(response.Body); // streamed, not fully buffered
+                await downloadResult.Value.Content.CopyToAsync(response.Body); 
 
                 _logger.LogInformation($"File '{fileName}' downloaded successfully.");
                 return response;
             }
+            //Catches any unexpected errors during the download
             catch (Exception ex)
             {
                 _logger.LogError($"Error downloading '{fileName}': {ex.Message}");
