@@ -31,10 +31,12 @@ namespace CoffeeNChillFunctions.Functions
             var response = req.CreateResponse();
             try
             {
+                //Connects to the staff-docs container, creates one if it hasn't been created yet
                 var containerClient = new BlobContainerClient("UseDevelopmentStorage=true", "staff-docs");
                 await containerClient.CreateIfNotExistsAsync();
 
                 var files = new List<object>();
+                //Loops through all the files in the container and gets their name, size and last modified date
                 await foreach (var blobItem in containerClient.GetBlobsAsync())
                 {
                     files.Add(new
@@ -45,11 +47,13 @@ namespace CoffeeNChillFunctions.Functions
                     });
                 }
 
+                //Logs how many files were found and sends the list back as JSON
                 _logger.LogInformation($"Found {files.Count} staff document(s).");
                 response.StatusCode = HttpStatusCode.OK;
                 await response.WriteAsJsonAsync(files);
                 return response;
             }
+            //Catches Azure-specific storage errors in a different catch so we can log the Azure error code.
             catch (RequestFailedException ex)
             {
                 _logger.LogError($"Azure Blob Storage error listing documents: {ex.ErrorCode} - {ex.Message}");
@@ -57,6 +61,7 @@ namespace CoffeeNChillFunctions.Functions
                 await response.WriteStringAsync($"Azure Blob Storage Error: {ex.ErrorCode} - {ex.Message}");
                 return response;
             }
+            //Catches any other unexpected errors that aren't Azure related
             catch (Exception ex)
             {
                 _logger.LogError($"Error listing staff documents: {ex.Message}");
