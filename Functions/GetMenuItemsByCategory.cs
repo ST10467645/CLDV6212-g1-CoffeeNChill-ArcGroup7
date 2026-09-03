@@ -12,29 +12,44 @@ using CoffeeNChillFunctions.Models;
 
 namespace CoffeeNChillFunctions.Functions
 {
+    // Defines the Azure Function responsible for retrieving menu items belonging to a specific category.
     public class GetMenuItemsByCategory
     {
+
+        // Exposes this method as an Azure Function that handles HTTP GET requests using the category supplied in the route.
         [Function("GetMenuItemsByCategory")]
         public async Task<HttpResponseData> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "menu/category/{category}")] HttpRequestData req,
             string category)
         {
+            // Validates that a category value has been provided before attempting to query the Table Storage database.
             if (string.IsNullOrWhiteSpace(category))
             {
+                // Returns 400 Bad Request when the category is missing or empty.
                 var badReq = req.CreateResponse(HttpStatusCode.BadRequest);
                 await badReq.WriteStringAsync("Category must be provided in the route.");
                 return badReq;
             }
 
+            // Creates a client for accessing the MenuItems table in Azure Table Storage.
             var table = new TableClient("UseDevelopmentStorage=true", "MenuItems");
+
+            // Ensures that the MenuItems table exists before performing the query.
             await table.CreateIfNotExistsAsync();
 
+            // Creates a list to store the menu items matching the requested category.
             var items = new List<MenuItem>();
+
+            // Non-simultaneously queries Table Storage for entities whose PartitionKey matches the supplied category.
             await foreach (var item in table.QueryAsync<MenuItem>(x => x.PartitionKey == category))
                 items.Add(item);
 
+            // Creates a successful HTTP response after the query has completed.
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(items); // empty array [] if none found — valid, not an error
+
+            // Serialises the matching menu items as JSON.
+            // If no items match the category, an empty array is returned rather than an error.
+            await response.WriteAsJsonAsync(items); 
             return response;
         }
     }
