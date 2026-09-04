@@ -6,6 +6,8 @@
 		<OutputType>Exe</OutputType>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<_FunctionsExtensionBuildAssemblyEnabled>false</_FunctionsExtensionBuildAssemblyEnabled>
 	</PropertyGroup>
 
 	<ItemGroup>
