@@ -14,12 +14,6 @@ Storage (container: staff-docs) to provide equivalent document upload/list/
 download functionality, as Azure File Share emulation is not reliably
 supported in Azurite for this project.
 
-## AI Disclosure
-AI tools (Claude) were used for planning, explaining concepts, and reviewing
-code structure throughout this project. All code was written, tested, and
-understood by the team; no code was submitted without modification and
-verification by a team member.
-
 ## Team Members and Contributions
 | Name | Student Number | Role | What they built |
 |---|---|---|---|
