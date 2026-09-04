@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "132b0416-5986-4332-a635-2516fa277285",
+    "_postman_id": "afb06895-2bf2-449d-aa0f-4495278ef2fb",
     "name": "CoffeeNChill Part 1",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "57297062"
+    "_exporter_id": "57297058"
   },
   "item": [
     {
@@ -35,7 +35,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"partitionKey\": \"HotDrinks\",\r\n  \"rowKey\": \"COF-002\",\r\n  \"name\": \"Hot Chocolate\",\r\n  \"description\": \"Creamy hot chocolate topped with foam\",\r\n  \"price\": 32.50,\r\n  \"isAvailable\": true\r\n}",
+              "raw": "{\r\n  \"partitionKey\": \"ColdDrinks\",\r\n  \"rowKey\": \"COL-005\",\r\n  \"name\": \"Lipton Peach\",\r\n  \"description\": \"Peach Iced Tea\",\r\n  \"price\": 12.99,\r\n  \"isAvailable\": true\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -154,7 +154,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"partitionKey\": \"HotDrinks\",\r\n  \"rowKey\": \"COF-002\",\r\n  \"name\": \"Hot Chocolate\",\r\n  \"description\": \"Creamy hot chocolate topped with foam\",\r\n  \"price\": 35.00,\r\n  \"isAvailable\": true\r\n}",
+              "raw": "{\r\n   \"PartitionKey\": \"ColdDrinks\",\r\n        \"RowKey\": \"COL-002\",\r\n        \"Name\": \"Fanta\",\r\n        \"Description\": \"Fizzy Orange Juice\",\r\n        \"Price\": 14.99,\r\n        \"IsAvailable\": true\r\n}\r\n\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -162,14 +162,14 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/menu/HotDrinks/COF-001",
+              "raw": "{{baseUrl}}/menu/ColdDrinks/COL-002",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "menu",
-                "HotDrinks",
-                "COF-001"
+                "ColdDrinks",
+                "COL-002"
               ]
             }
           },
@@ -200,14 +200,14 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/menu/HotDrinks/COF-001",
+              "raw": "{{baseUrl}}/menu/ColdDrinks/COL-004",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "menu",
-                "HotDrinks",
-                "COF-001"
+                "ColdDrinks",
+                "COL-004"
               ]
             }
           },
@@ -239,6 +239,9 @@
               }
             }
           ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
           "request": {
             "method": "POST",
             "header": [],
@@ -246,11 +249,11 @@
               "mode": "formdata",
               "formdata": [
                 {
-                  "key": "",
-                  "description": "Test employee data",
+                  "key": "file",
+                  "description": "Staff Document",
                   "type": "file",
-                  "uuid": "ea932616-08ae-4b98-87cd-430ef56a8037",
-                  "src": "/C:/Users/emeris/OneDrive - ADvTECH Ltd/Desktop/Documents/Kandyce Jade Smit's files - Part 1 (Shared)/Member folders/Kristen/Test Documents/CoffeeNChill_TestEmployee.pdf"
+                  "uuid": "78b9723a-aa5f-4d14-9de0-584141517a68",
+                  "src": "/C:/Users/emeris/Downloads/INSY6212_TESTUPLOAD_CLOUD.pdf"
                 }
               ]
             },
