@@ -74,6 +74,31 @@ the Azurite image).
 | GET | /api/documents | List all staff documents with metadata |
 | GET | /api/documents/download/{fileName} | Download a specific staff document |
 
+## Menu Management Feature (Kandyce)
+
+The Menu Management feature replaces CoffeeNChill's paper-based chalkboard
+menu with an Azure Table Storage solution. Five HTTP-triggered functions were
+built to provide full CRUD operations for menu items:
+
+* CreateMenuItem creates a new menu item and validates the input data, returning
+  a 400 Bad Request when required information is missing.
+* GetAllMenuItems returns all menu items stored in the table.
+* GetMenuItemsByCategory filters menu items by category using the PartitionKey.
+* UpdateMenuItem updates an existing menu item's price or availability and
+  returns a 404 Not Found if the item does not exist.
+* DeleteMenuItem deletes an existing menu item and returns a 404 Not Found if
+  the item does not exist.
+
+Each menu item uses the category as the PartitionKey and a unique SKU as the
+RowKey, with additional fields for name, description, price, and availability.
+Validation and existence checks were implemented to provide appropriate error
+handling and prevent unhandled errors.
+
+To test: import the Postman collection, select the "Local Azurite"
+environment, open the "Menu" folder, and run the Create request first, followed
+by the Get All, Get By Category, Update, and Delete requests. Error-handling
+requests are also included to test validation and 404 responses.
+
 ## Staff Documents Feature (Kristen)
 The staff documents feature replaces the filing cabinet of recipe sheets,
 cleaning manuals and safety policies with an Azure Blob Storage container
