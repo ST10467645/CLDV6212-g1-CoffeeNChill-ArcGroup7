@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "afb06895-2bf2-449d-aa0f-4495278ef2fb",
+    "_postman_id": "dcae378a-94d2-4e49-895e-a4965dd5ab61",
     "name": "CoffeeNChill Part 1 - Successful Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "57297058"
+    "_exporter_id": "57297060"
   },
   "item": [
     {
@@ -219,7 +219,7 @@
       "name": "Documents - Successful Tests",
       "item": [
         {
-          "name": "Upload Staff Document",
+          "name": "Upload Staff Document - Successful",
           "event": [
             {
               "listen": "test",
@@ -250,10 +250,10 @@
               "formdata": [
                 {
                   "key": "file",
-                  "description": "Staff Document",
+                  "description": "chocolate chip cookie test data",
                   "type": "file",
-                  "uuid": "78b9723a-aa5f-4d14-9de0-584141517a68",
-                  "src": "/C:/Users/emeris/Downloads/INSY6212_TESTUPLOAD_CLOUD.pdf"
+                  "uuid": "fe3ff3b7-313a-4ff1-beca-c0ce9a2c3c17",
+                  "src": "/C:/Users/emeris/OneDrive - ADvTECH Ltd/Desktop/Documents/Kandyce Jade Smit's files - Part 1 (Shared)/Member folders/Kristen/Test Documents/ChocolateChipCookies_testdata.pdf"
                 }
               ]
             },
@@ -271,7 +271,7 @@
           "response": []
         },
         {
-          "name": "List Staff Documents",
+          "name": "List Staff Documents  - Successful",
           "event": [
             {
               "listen": "test",
@@ -307,7 +307,7 @@
           "response": []
         },
         {
-          "name": "Download Staff Document",
+          "name": "Download Staff Document  - Successful",
           "event": [
             {
               "listen": "test",
@@ -331,14 +331,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/documents/download/CoffeeNChill_TestEmployee.pdf",
+              "raw": "{{baseUrl}}/documents/download/ChocolateChipCookies_testdata.pdf",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "documents",
                 "download",
-                "CoffeeNChill_TestEmployee.pdf"
+                "ChocolateChipCookies_testdata.pdf"
               ]
             }
           },
