@@ -53,7 +53,7 @@ namespace CoffeeNChillFunctions.Functions
                 await response.WriteAsJsonAsync(files);
                 return response;
             }
-            //Catches Azure-specific storage errors in a different catch so we can log the Azure error code.
+            //Catches Azure-specific storage errors in a different catch so we can log the Azure error code like (ContainerNotFound) rather than a generic message.
             catch (RequestFailedException ex)
             {
                 _logger.LogError($"Azure Blob Storage error listing documents: {ex.ErrorCode} - {ex.Message}");

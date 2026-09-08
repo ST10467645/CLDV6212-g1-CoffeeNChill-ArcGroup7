@@ -1,5 +1,4 @@
-﻿// Code attribution: multipart-form parsing pattern adapted from Microsoft's
-// MultipartReader documentation:
+﻿// Code attribution: multipart-form parsing pattern adapted from Microsoft's MultipartReader documentation:
 // Microsoft, "MultipartReader Class," Microsoft Learn, 2025.
 // https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.webutilities.multipartreader
 // [Accessed: 26-Aug-2026].
@@ -7,7 +6,16 @@
 // Microsoft, "Introduction to Azure Blob Storage," Microsoft Learn, 2025.
 // https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
 // [Accessed: 26-Aug-2026].
+// I was having problems with uploading in postman so the following helped me:
+// Content-Type resolution on upload adapted from Microsoft's Azure Blob Storage documentation:
+// Microsoft, "BlobHttpHeaders Class," Microsoft Learn, 2025.
+// https://learn.microsoft.com/en-us/dotnet/api/azure.storage.blobs.models.blobhttpheaders?view=azure-dotnet
+// [Accessed: 04-Sep-2026].
+// Microsoft, "BlobUploadOptions.HttpHeaders Property," Microsoft Learn, 2025.
+// https://learn.microsoft.com/en-us/dotnet/api/azure.storage.blobs.models.blobuploadoptions.httpheaders?view=azure-dotnet
+// [Accessed: 04-Sep-2026].
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -73,12 +81,15 @@ namespace CoffeeNChillFunctions.Functions
                         uploadedFileName = Path.GetFileName(contentDisposition.FileName.Value);
 
                         //Only allows PDF, PNG and JPEG files so we don't accidentally keep unsafe files
-                        var allowed = new[] { "application/pdf", "image/png", "image/jpeg" };
-                        if (!string.IsNullOrEmpty(section.ContentType) && !allowed.Contains(section.ContentType))
+                        var allowedExtensions = new[] { ".pdf", ".png", ".jpg", ".jpeg" };
+                        //Sets the correct content type based on file extension so Download reports it properly
+                        var extension = Path.GetExtension(uploadedFileName)?.ToLower();
+
+                        if (string.IsNullOrEmpty(extension) || !allowedExtensions.Contains(extension))
                         {
-                            _logger.LogWarning($"Rejected file '{uploadedFileName}' — disallowed type '{section.ContentType}'.");
+                            _logger.LogWarning($"Rejected file '{uploadedFileName}' — disallowed extension '{extension}'.");
                             response.StatusCode = HttpStatusCode.BadRequest;
-                            await response.WriteStringAsync($"File type '{section.ContentType}' not allowed.");
+                            await response.WriteStringAsync($"File type not allowed.");
                             return response;
                         }
 
@@ -88,7 +99,38 @@ namespace CoffeeNChillFunctions.Functions
 
                         //Uploads the file to blob storage, overwrite true replaces any file with the file name
                         var blobClient = containerClient.GetBlobClient(uploadedFileName);
-                        await blobClient.UploadAsync(section.Body, overwrite: true);
+                        //Works out the correct content type from the file's extension. 
+                        //Without this Azure stores every uploaded file as "application/octet-stream" type, 
+                        //which affects the downloads as it would put in the wrong file type even though the file is fine.
+                        string resolvedContentType = "application/octet-stream";
+
+                        if (extension == ".pdf")
+                        {
+                            resolvedContentType = "application/pdf";
+                        }
+                        else if (extension == ".png")
+                        {
+                            resolvedContentType = "image/png";
+                        }
+                        else if (extension == ".jpg" || extension == ".jpeg")
+                        {
+                            resolvedContentType = "image/jpeg";
+                        }
+
+                        //BlobHttpHeaders attaches HTTP header values like (Content-Type) to a blob when it's uploaded. We only attach ContentType in the following:
+                        var headers = new BlobHttpHeaders
+                        {
+                            ContentType = resolvedContentType
+                        };
+
+                        //BlobUploadOptions collects all the optional settings UploadAsync can accept, including the headers object above.
+                        var uploadOptions = new BlobUploadOptions
+                        {
+                            HttpHeaders = headers
+                        };
+
+                        //Uploads the file, putting in the content type settings so it's stored correctly
+                        await blobClient.UploadAsync(section.Body, uploadOptions);
                     }
                 }
 

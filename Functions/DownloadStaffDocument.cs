@@ -49,6 +49,9 @@ namespace CoffeeNChillFunctions.Functions
 
                 //Sets the response status and content type, then streams the file content into the response body
                 response.StatusCode = HttpStatusCode.OK;
+                //Shows if the content type was stored on the blob. 
+                //Since UploadStaffDocuments sets the correct content type when the file is saved, 
+                //this should return the real file type like (application/pdf) rather than the default.
                 response.Headers.Add("Content-Type", downloadResult.Value.Details.ContentType ?? "application/octet-stream");
                 await downloadResult.Value.Content.CopyToAsync(response.Body); 
 

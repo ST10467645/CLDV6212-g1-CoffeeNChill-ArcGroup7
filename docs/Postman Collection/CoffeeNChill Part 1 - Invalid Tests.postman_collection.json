@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "3edddda1-f5e3-4c66-8f2e-645c3226082f",
+    "_postman_id": "4f348d76-0fd6-481e-97ad-053625d5b34c",
     "name": "CoffeeNChill Part 1 - Invalid Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "57297058"
+    "_exporter_id": "57297060"
   },
   "item": [
     {
@@ -197,12 +197,192 @@
       ]
     },
     {
-      "name": "Documents -  Invalid Tests",
+      "name": "Health Check - Invalid Tests",
       "item": []
     },
     {
-      "name": "Health Check - Invalid Tests",
-      "item": []
+      "name": "Documents -  Invalid Tests",
+      "item": [
+        {
+          "name": "List Staff Documents - Invalid",
+          "item": [
+            {
+              "name": "List Staff Documents - Invalid",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "   pm.test(\"Status code is successful\", function () {\r",
+                      "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "   });"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Download Staff Document - Invalid",
+          "item": [
+            {
+              "name": "Download Staff Document - Invalid - document isn't found",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "   pm.test(\"Status code is successful\", function () {\r",
+                      "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "   });"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/documents/download/How to Make Chocolate Chip Cookies.txt",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    "download",
+                    "How to Make Chocolate Chip Cookies.txt"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Upload Staff Document - Invalid",
+          "item": [
+            {
+              "name": "Upload Staff Document - Invalid - text document",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "   pm.test(\"Status code is successful\", function () {\r",
+                      "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "   });"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "description": "chocolate chip cookie recipe text document",
+                      "type": "file",
+                      "uuid": "669e2473-cc23-47e2-968b-261b3d4838fd",
+                      "src": "/C:/Users/emeris/OneDrive - ADvTECH Ltd/Desktop/Documents/Kandyce Jade Smit's files - Part 1 (Shared)/Member folders/Kristen/Test Documents/How to Make Chocolate Chip Cookies.txt"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents/upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    "upload"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Upload Staff Document - Invalid - no document",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "   pm.test(\"Status code is successful\", function () {\r",
+                      "       pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "   });"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents/upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    "upload"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }
