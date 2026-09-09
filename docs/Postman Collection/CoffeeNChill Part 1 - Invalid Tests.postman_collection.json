@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "4f348d76-0fd6-481e-97ad-053625d5b34c",
+    "_postman_id": "f4d460f4-bd19-49a8-8fd3-8d89e397a49d",
     "name": "CoffeeNChill Part 1 - Invalid Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "57297060"
+    "_exporter_id": "57297058"
   },
   "item": [
     {
@@ -11,188 +11,296 @@
       "item": [
         {
           "name": "Create Menu Item - Invalid",
-          "event": [
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
-                  "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 01-Sep-2026].\r",
-                  "pm.test(\"Status code is successful\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"partitionKey\": \"Hot Drinks\",\r\n  \"rowKey\": \"COF-003\",\r\n  \"description\": \"Espresso with velvety steamed milk\",\r\n  \"price\": 30.00,\r\n  \"isAvailable\": true\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "name": "Create Menu Item - Invalid: missing a field",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "pm.test(\"Status code is successful\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/menu",
-              "host": [
-                "{{baseUrl}}"
               ],
-              "path": [
-                "menu"
-              ]
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"partitionKey\": \"Hot Drinks\",\r\n  \"rowKey\": \"COF-003\",\r\n  \"description\": \"Espresso with velvety steamed milk\",\r\n  \"price\": 30.00,\r\n  \"isAvailable\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/menu",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Menu Item - Invalid: already created",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "pm.test(\"Status code is successful\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"partitionKey\": \"Hot Drinks\",\r\n  \"rowKey\": \"COF-004\",\r\n  \"name\": \"Spanish Latte\",\r\n  \"description\": \"Espresso with condensed milk\",\r\n  \"price\": 30.00,\r\n  \"isAvailable\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/menu",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
           "name": "Get All Menu Items - Invalid",
-          "event": [
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
-                  "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 01-Sep-2026].\r",
-                  "pm.test(\"Status code is successful\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/menu",
-              "host": [
-                "{{baseUrl}}"
+              "name": "Get All Menu Items - Invalid: no menu items exist",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "pm.test(\"Status code is successful\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
               ],
-              "path": [
-                "menu"
-              ]
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/menu",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
           "name": "Get Menu Items By Category - Invalid",
-          "event": [
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
-                  "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 01-Sep-2026].\r",
-                  "pm.test(\"Status code is successful\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/menu/category/Hot%20Drinks",
-              "host": [
-                "{{baseUrl}}"
+              "name": "Get Menu Items By Category - Invalid: category doesn't exist",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "pm.test(\"Status code is successful\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
               ],
-              "path": [
-                "menu",
-                "category",
-                "Hot%20Drinks"
-              ]
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/menu/category/Soups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu",
+                    "category",
+                    "Soups"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Menu Items By Category - Invalid: no menu items for category",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "pm.test(\"Status code is successful\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/menu/category/Hot%20Drinks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu",
+                    "category",
+                    "Hot%20Drinks"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
           "name": "Update Menu Item - Invalid",
-          "event": [
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// Test script attribution: pattern adapted from Postman's official documentation:\r",
-                  "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
-                  "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
-                  "// [Accessed: 01-Sep-2026].\r",
-                  "pm.test(\"Status code is successful\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"partitionKey\": \"Hot Drinks\",\r\n  \"rowKey\": \"COF-050\",\r\n  \"name\": \"Spanish Latte\",\r\n  \"description\": \"Espresso with condensed milk\",\r\n  \"price\": 33.00,\r\n  \"isAvailable\": false\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "name": "Update Menu Item - Invalid: menu item not found",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Test script attribution: pattern adapted from Postman's official documentation:\r",
+                      "// Postman Inc., \"Write scripts to test API responses,\" Postman Learning Center, 2025. \r",
+                      "// https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/\r",
+                      "// [Accessed: 01-Sep-2026].\r",
+                      "pm.test(\"Status code is successful\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/menu/Hot%20Drinks/COF-050",
-              "host": [
-                "{{baseUrl}}"
               ],
-              "path": [
-                "menu",
-                "Hot%20Drinks",
-                "COF-050"
-              ]
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"partitionKey\": \"Hot Drinks\",\r\n  \"rowKey\": \"COF-050\",\r\n  \"name\": \"Spanish Latte\",\r\n  \"description\": \"Espresso with condensed milk\",\r\n  \"price\": 33.00,\r\n  \"isAvailable\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/menu/Hot%20Drinks/COF-050",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu",
+                    "Hot%20Drinks",
+                    "COF-050"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
           "name": "Delete Menu Item - Invalid",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/menu/Hot%20Drinks/COF-065",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "menu",
-                "Hot%20Drinks",
-                "COF-065"
-              ]
+          "item": [
+            {
+              "name": "Delete Menu Item - Invalid: menu item does not exist",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/menu/Hot%20Drinks/COF-065",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "menu",
+                    "Hot%20Drinks",
+                    "COF-065"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         }
       ]
     },
