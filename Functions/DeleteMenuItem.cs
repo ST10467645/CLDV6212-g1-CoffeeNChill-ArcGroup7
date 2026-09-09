@@ -26,7 +26,8 @@ namespace CoffeeNChillFunctions.Functions
             try
             {
                 // Creates a client for accessing the MenuItems table in Azure Table Storage.
-                var table = new TableClient("UseDevelopmentStorage=true", "MenuItems");
+                string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage") ?? "UseDevelopmentStorage=true";
+                var table = new TableClient(connectionString, "MenuItems");
 
                 // Checks it exists first, so we can return a proper 404.
                 try
