@@ -23,7 +23,8 @@ namespace CoffeeNChillFunctions.Functions
             var response = req.CreateResponse(HttpStatusCode.OK);
 
             // Creates a client for accessing the MenuItems table in Azure Table Storage.
-            var table = new TableClient("UseDevelopmentStorage=true", "MenuItems");
+            string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage") ?? "UseDevelopmentStorage=true";
+            var table = new TableClient(connectionString, "MenuItems");
 
             // Ensures that the required table exists before attempting to query it.
             await table.CreateIfNotExistsAsync();

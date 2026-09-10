@@ -45,7 +45,8 @@ namespace CoffeeNChillFunctions.Functions
                 }
 
                 // Creates a client for accessing the MenuItems table in Azure Table Storage.
-                var table = new TableClient("UseDevelopmentStorage=true", "MenuItems");
+                string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage") ?? "UseDevelopmentStorage=true";
+                var table = new TableClient(connectionString, "MenuItems");
 
                 // Stores the existing menu item so that it can be checked before the update is performed.
                 Response<MenuItem> existing;
