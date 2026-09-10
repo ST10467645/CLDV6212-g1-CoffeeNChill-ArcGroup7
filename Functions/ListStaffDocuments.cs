@@ -32,7 +32,8 @@ namespace CoffeeNChillFunctions.Functions
             try
             {
                 //Connects to the staff-docs container, creates one if it hasn't been created yet
-                var containerClient = new BlobContainerClient("UseDevelopmentStorage=true", "staff-docs");
+                string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage") ?? "UseDevelopmentStorage=true";
+                var containerClient = new BlobContainerClient(connectionString, "staff-docs");
                 await containerClient.CreateIfNotExistsAsync();
 
                 var files = new List<object>();

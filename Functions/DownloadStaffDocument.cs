@@ -32,7 +32,8 @@ namespace CoffeeNChillFunctions.Functions
             try
             {
                 //Connects to the staff-docs container to find the file
-                var containerClient = new BlobContainerClient("UseDevelopmentStorage=true", "staff-docs");
+                string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage") ?? "UseDevelopmentStorage=true";
+                var containerClient = new BlobContainerClient(connectionString, "staff-docs");
                 var blobClient = containerClient.GetBlobClient(fileName);
 
                 //Checks if the file exists before trying to download it, returns 404 if not found
