@@ -7,12 +7,29 @@ Azure Table Storage for the digital menu, Azure Blob Storage for staff documents
 and standalone Docker containers for local Azurite emulation and the Azure
 Functions app itself.
 
+## Repository Note
+The original project repository was created through the university's
+GitHub Classroom and was configured as a private repository. As the
+project submission requires a publicly accessible GitHub repository,
+the completed project was mirrored to a separate public repository
+for submission and assessment purposes. The public repository
+contains the same project source code, documentation, testing
+materials, and submission evidence as the original Classroom
+repository.
+
+
 ## Important Note on Storage
 The assignment brief references "Azure File Share" for staff documents. Per
 lecturer guidance, Azure File Share emulation was replaced with Azure Blob
 Storage (container: staff-docs) to provide equivalent document upload/list/
 download functionality, as Azure File Share emulation is not reliably
 supported in Azurite for this project.
+
+## Important Note on .NET Version
+This project was originally scaffolded on .NET 10, but was downgraded to
+.NET 9 during development for compatibility with the official Azure Functions
+Docker base images used in containerisation. Ensure the .NET 9 SDK is
+installed before building or running this project.
 
 ## Team Members and Contributions
 | Name | Student Number | Role | What they built |
@@ -23,6 +40,7 @@ supported in Azurite for this project.
 
 ## Prerequisites (Tools to Install)
 - Visual Studio 2022 (with Azure development workload)
+- .NET 9 SDK
 - Docker Desktop
 - Postman
 - Git
@@ -30,10 +48,16 @@ supported in Azurite for this project.
 ## Local Setup Instructions
 
 1. Clone the repository:
-git clone https://github.com/EMGPSD/cldv6212-g1-2026-poe-part1-st10467645.git
 
-2. Create a local.settings.json file in the project root (not included by
-default, must be created manually) with the following content:
+```text
+git clone https://github.com/ST10467645/CLDV6212-g1-CoffeeNChill-ArcGroup7.git
+
+```
+
+2. Ensure that a local.settings.json file is present in the project root
+with the following content:
+
+```text
 {
   "IsEncrypted": false,
   "Values": {
@@ -42,10 +66,37 @@ default, must be created manually) with the following content:
   }
 }
 
+```
+
 3. Start the Azurite storage emulator in Docker:
+
+```text
 docker run -d --name coffeenchill-azurite -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite azurite --skipApiVersionCheck --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0
 
+```
+
 4. Open the solution in Visual Studio and press F5 to run the Functions project locally.
+
+## Project Structure
+
+```text
+CoffeeNChillFunctions/
+├── docs/
+│   ├── docker-screenshots/
+│   ├── Final Submission Document/
+│   ├── Postman Collection/
+│   └── staff-docs_TestDocuments/
+├── Functions/
+├── Models/
+├── Properties/
+├── Dockerfile
+├── local.settings.json
+├── CoffeeNChillFunctions.csproj
+└── README.md
+
+```
+Note: bin/ and obj/ folders are auto-generated build output and are
+excluded from version control via .gitignore.
 
 ## Docker Standalone Container Commands
 See docs/docker-commands.md for the full reference of Docker commands used
@@ -74,71 +125,148 @@ the Azurite image).
 | GET | /api/documents | List all staff documents with metadata |
 | GET | /api/documents/download/{fileName} | Download a specific staff document |
 
-## Menu Management Feature (Kandyce)
+## Feature Descriptions
 
-The Menu Management feature replaces CoffeeNChill's paper-based chalkboard
-menu with an Azure Table Storage solution. Five HTTP-triggered functions were
-built to provide full CRUD operations for menu items:
+### Menu Management (Kandyce)
+The Menu Management feature uses Microsoft Azure's Table Storage to digitalise
+CoffeeNChill's chalkboard menu for their coffee shop. With five HTTP triggered
+Azure Functions that handle full CRUD operations of the menu items (creating,
+reading, updating, and deleting): create a new menu item (Microsoft Learn,
+2025b), read all available menu items (Microsoft Learn, 2026c), read only
+specific menu items by category (Microsoft Learn, 2022), and updating and
+deleting menu items (Microsoft Learn, 2026c). This storage system stores each
+menu item with its category as the Partition Key and a unique SKU as the Row
+Key. In addition, it includes name, description, price and status fields for
+each menu item. Validation logic has been implemented in each function to
+validate the input data when creating a new record (validation for bad
+request 400 when missing data exists). Also, there have been existence checks
+included for update and delete operations to prevent unexpected errors from
+occurring (return a 404 Not Found instead of an unhandled exception).
 
-* CreateMenuItem creates a new menu item and validates the input data, returning
-  a 400 Bad Request when required information is missing.
-* GetAllMenuItems returns all menu items stored in the table.
-* GetMenuItemsByCategory filters menu items by category using the PartitionKey.
-* UpdateMenuItem updates an existing menu item's price or availability and
-  returns a 404 Not Found if the item does not exist.
-* DeleteMenuItem deletes an existing menu item and returns a 404 Not Found if
-  the item does not exist.
+### Staff Documents (Kristen)
+The Staff Documents feature allows the canteen staff to upload, view and
+download important documents using Azure Blob Storage. When a file is
+uploaded the system checks that it's either a PDF, PNG or JPEG before storing
+it, so other file types can't be uploaded by mistake (Microsoft Learn, 2026f).
+All the uploaded documents are stored in a container called "staff-docs" and
+users can list every file that's currently stored, along with its name, size
+and the date it was last modified (Microsoft Learn, 2026e). Files are also
+downloaded using streaming, which sends the file to the user instead of
+loading the whole thing into memory first making it more efficient for larger
+files (Microsoft Learn, 2026d). Each function also includes error handling
+and logging so any problems such as a missing file or a storage connection
+issue are caught and logged instead of crashing the app.
 
-Each menu item uses the category as the PartitionKey and a unique SKU as the
-RowKey, with additional fields for name, description, price, and availability.
-Validation and existence checks were implemented to provide appropriate error
-handling and prevent unhandled errors.
+The test documents used for the Staff Documents upload functionality can
+be found in the `docs/staff-docs_TestDocuments/` folder. These files are
+provided as sample documents for testing the upload endpoint and
+demonstrating the supported document types.
 
-To test: import the Postman collection, select the "Local Azurite"
-environment, open the "Menu" folder, and run the Create request first, followed
-by the Get All, Get By Category, Update, and Delete requests. Error-handling
-requests are also included to test validation and 404 responses.
 
-## Staff Documents Feature (Kristen)
-The staff documents feature replaces the filing cabinet of recipe sheets,
-cleaning manuals and safety policies with an Azure Blob Storage container
-named staff-docs. Three HTTP-triggered functions were built:
-- UploadStaffDocument accepts a file via form-data, validates the
-  MIME type (PDF, PNG, or JPEG only) and streams it directly into the
-  container without loading the whole file into memory.
-- ListStaffDocuments returns every file's name, size, and last modified date.
-- DownloadStaffDocument streams the requested file back to the caller or
-  returns a 404 if the file does not exist.
-
-To test: import the Postman collection, select the "Local Azurite"
-environment, open the "Documents" folder, and run Upload first (so List and
-Download have a file to find), then List, then Download.
-
-## Docker Setup (Thami)
-This project runs as two separate standalone Docker containers in Part 1
-(no Docker Compose yet - that comes in Part 2):
-1. coffeenchill-azurite - the local Azure Storage emulator, running Azurite
-   with the --skipApiVersionCheck flag (required because newer Azure SDK
-   packages send a storage API version newer than the default Azurite build
-   recognises).
-2. coffeenchill-functions - the Azure Functions app itself, built from the
-   Dockerfile in the project root using a multi-stage build (a full SDK
-   image to compile, then a lightweight runtime image to actually run it).
-
-Both images are published publicly to Docker Hub, version tagged v1.0. See
-docs/docker-commands.md for the exact commands to build, push, and run both
-containers, and confirm they can communicate with each other.
+### Docker (Thami)
+My contribution to Part 1 of the POE was the Docker setup. I wrote a
+multi-stage Dockerfile for the Azure Functions project, the beginning stage
+used the full .NET 9 SDK image to compile and publish the code, the second
+stage then copied only the compiled output into the lightweight Azure
+Functions runtime image, keeping the final image small and clean (Microsoft
+Learn, 2026a) (Microsoft Learn, 2026b). I also built and tagged both images
+with version tag v1.0 and published them directly to Docker Hub under the
+account st10482062: "coffeenchill-functions" for the Azure Functions
+application and "coffeenchill-azurite" as a re-tagged instance of the
+official Azurite image (Docker, 2026a), (Docker, 2026b), (Docker, 2026c),
+(Docker, 2026d). Azurite also runs in its own standalone Docker container
+with the "--skipApiVersionCheck" flag bound to ports 10000, 10001, and 10002,
+and both containers communicate with each other over a shared Docker network
+called "coffeenchill-net" (Microsoft Learn, 2025a), (Microsoft Learn, 2026b).
 
 ## Testing
 A full Postman collection covering every endpoint above, with sample request
-bodies and passing tests, is available in docs/CoffeeNChill_Part1_Postman_
-Collection.json. Import this file along with docs/CoffeeNChill_Part1_
-Environment.json into Postman, select the "Local Azurite" environment, and
-run the collection.
+bodies and passing tests, is available in `docs/Postman Collection/`. Import
+the collection and environment files into Postman, select the "Local
+Azurite" environment, and run the collection.
+
+For the Staff Documents functionality, the test documents used for uploading
+files are available in `docs/staff-docs_TestDocuments/`. The folder contains
+the sample files used to test the document upload functionality.
+
+Note: if testing the Upload Staff Document request via Postman's "Run
+collection" feature on a machine other than the one the file was originally
+attached on, you may need to re-select the file in the Body tab first, as
+Postman does not export the actual file with the collection, only a local
+file path reference.
+
+## Final Submission Document
+
+The full Part 1 POE document is available as a PDF in:
+
+docs/Final Submission Document/CLDV6212_Part_1_Final_Submission.pdf
+
+The PDF contains the cover page, GitHub and YouTube links, team member contributions, feature descriptions, evidence screenshots, Postman testing evidence, GitHub contribution and pull request evidence, and references. This PDF serves as the formal Part 1 submission document referenced in the assignment brief.
+
 
 ## Video Demonstration
-[YOUTUBE LINK WILL BE ADDED HERE ONCE RECORDED]
+https://youtu.be/suzi50aHtrU?si=HFO_WMRrx3LRTdMr
+
+Note: please set the video quality to 1080p HD in YouTube's settings, as it
+will default to 360p on load and may appear blurry otherwise.
+
+## Referencing
+
+### Section A - Feature Implementation Descriptions
+The descriptions above for Menu Management, Staff Documents, and Docker were
+written using official Microsoft Learn and Docker documentation as
+references for the Azure Functions, Azure Table Storage, Azure Blob Storage,
+and Docker concepts and APIs used throughout this project.
 
 ## References
-References for code patterns and concepts used throughout this project are
-included as comments directly above the relevant code in each file with access dates.
+Docker, 2026a. Build and push your first image. [Online]
+Available at: https://docs.docker.com/get-started/introduction/build-and-push-first-image/
+[Accessed 04 September 2026].
+
+Docker, 2026b. Docker Hub quickstart. [Online]
+Available at: https://docs.docker.com/docker-hub/quickstart/
+[Accessed 04 September 2026].
+
+Docker, 2026c. Push images to a repository. [Online]
+Available at: https://docs.docker.com/docker-hub/repos/manage/hub-images/push/
+[Accessed 04 September 2026].
+
+Docker, 2026d. Build, tag, and publish an image. [Online]
+Available at: https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2022. What is Azure Table storage?. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/storage/tables/table-storage-overview
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2025a. Install and run Azurite emulator. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/storage/common/storage-install-azurite
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2025b. Azure Functions HTTP trigger. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=python-v2%2Cisolated-process%2Cnodejs-v4%2Cfunctionsv2&pivots=programming-language-csharp
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2026a. Create your first containerized Azure Functions. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/azure-functions/functions-deploy-container
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2026b. Work with containers and Azure Functions. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/azure-functions/functions-how-to-custom-container
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2026c. Azure Tables client library for .NET - version 12.12.0. [Online]
+Available at: https://learn.microsoft.com/en-us/dotnet/api/overview/azure/data.tables-readme?view=azure-dotnet
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2026d. Download a blob with .NET. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-download
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2026e. Introduction to Azure Blob Storage. [Online]
+Available at: https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
+[Accessed 04 September 2026].
+
+Microsoft Learn, 2026f. MultipartReader Class. [Online]
+Available at: https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.webutilities.multipartreader?view=aspnetcore-10.0
+[Accessed 04 September 2026].
