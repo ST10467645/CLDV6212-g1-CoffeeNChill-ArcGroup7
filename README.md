@@ -2,9 +2,13 @@
 
 ## Group number and members
 Group on ARC: 7 
+
 Members:
+
 Kristen Keve - ST10472683 
+
 Kandyce Smit - ST10467645
+
 Thamsanqa Ncube - ST10482062 
 
 ## Project Overview
@@ -25,6 +29,7 @@ materials, and submission evidence as the original Classroom
 repository.
 
 Private repository accepted from Classroom 50: https://github.com/EMGPSD/cldv6212-g1-2026-poe-part1-st10467645.git
+
 Public repository created by group: https://github.com/ST10467645/CLDV6212-g1-CoffeeNChill-ArcGroup7.git
 
 ## Important Note on Storage
