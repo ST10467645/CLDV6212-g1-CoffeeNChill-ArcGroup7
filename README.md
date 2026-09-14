@@ -1,5 +1,12 @@
 # CoffeeNChill Canteen Management System - Part 1
 
+## Group number and members
+Group on ARC: 7 
+Members:
+Kristen Keve - ST10472683 
+Kandyce Smit - ST10467645
+Thamsanqa Ncube - ST10482062 
+
 ## Project Overview
 This project modernises the CoffeeNChill campus canteen's paper-based menu and
 filing cabinet system into a cloud-enabled backend. Part 1 builds the foundation:
@@ -17,6 +24,8 @@ contains the same project source code, documentation, testing
 materials, and submission evidence as the original Classroom
 repository.
 
+Private repository accepted from Classroom 50: https://github.com/EMGPSD/cldv6212-g1-2026-poe-part1-st10467645.git
+Public repository created by group: https://github.com/ST10467645/CLDV6212-g1-CoffeeNChill-ArcGroup7.git
 
 ## Important Note on Storage
 The assignment brief references "Azure File Share" for staff documents. Per
